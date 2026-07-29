@@ -1,0 +1,34 @@
+{
+  "name": "Go & TypeScript",
+  "image": "ghcr.io/prulloac/base:bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/prulloac/devcontainer-features/bun:1": {},
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "latest",
+      "golangciLintVersion": "latest"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "files.eol": "\n"
+      },
+      "extensions": [
+        "golang.go",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "ms-azuretools.vscode-docker",
+        "redhat.vscode-yaml"
+      ]
+    }
+  },
+  "mounts": [
+    "source=${localEnv:USERPROFILE}/.agents,target=/home/vscode/.agents,type=bind,consistency=cached",
+    "source=${localEnv:USERPROFILE}/Documents/Cline,target=/home/vscode/Documents/Cline,type=bind,consistency=cached"
+  ],
+  "postCreateCommand": "mkdir -p ~/.cline && ln -sf /home/vscode/Documents/Cline/Workflows ~/.cline/workflows && ln -sf /home/vscode/Documents/Cline/Rules ~/.cline/rules && [ -f /home/vscode/.agents/AGENTS.md ] && ln -sf /home/vscode/.agents/AGENTS.md ~/.clinerules || true",
+  "remoteUser": "vscode"
+}
